@@ -10,7 +10,7 @@ let cell8 = document.getElementById('cell-8');
 let startButton = document.getElementById('start');
 let playerTurn = document.getElementById('playerStatus')
 let move = 0;
-let gameOn = true;
+let gameOn = false;
 
 
 //events to place mark for clicks in boxes
@@ -25,11 +25,11 @@ cell7.addEventListener('click', mark);
 cell8.addEventListener('click', mark);
 // start button
 startButton.addEventListener('click', () => {
-	gameOn === true;
+	gameOn = true;
     startButton.disabled = true;
     playerTurn.textContent = 'Player X\'s turn'
 
-    alert(gameOn)
+    
 });
 
 
