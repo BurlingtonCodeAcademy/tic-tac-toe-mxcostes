@@ -16,6 +16,7 @@ let startButton = document.getElementById('start');
 let resetButton = document.getElementById('reset');
 let playerTurn = document.getElementById('playerStatus');
 let seconds = Number(clock.textContent)
+
 let move = 0;
 let gameOn = false;
 let winner = '';
@@ -35,7 +36,7 @@ cell8.addEventListener('click', mark);
 startButton.addEventListener('click', () => {
 	gameOn = true;
     startButton.disabled = true;
-    setInterval(timer, 1000)
+    interval = setInterval(timer, 1000)
 	playerTurn.textContent = "Player X's turn";
 });
 
@@ -81,7 +82,10 @@ function reset() {
 	cell6.textContent = '';
 	cell7.textContent = '';
 	cell8.textContent = '';
-	startButton.disabled = false;
+    startButton.disabled = false;
+    clearInterval(interval)
+    clock.textContent = 0
+    seconds = 0
 	console.log('reset');
 }
 
