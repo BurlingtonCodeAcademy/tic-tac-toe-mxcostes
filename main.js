@@ -35,6 +35,7 @@ startButton.addEventListener('click', () => {
 
 //used to mark squares
 function mark(event) {
+    if(event.target.textContent === ''){
 	if (gameOn === true && move % 2 === 0) {
         event.target.textContent = 'x'
         move = move + 1
@@ -44,5 +45,5 @@ function mark(event) {
         move = move + 1
         playerTurn.textContent = 'Player X\'s turn'
         
-	}
+	}} 
 }
