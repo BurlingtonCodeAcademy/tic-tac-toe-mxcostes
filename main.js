@@ -10,7 +10,7 @@ let cell8 = document.getElementById('cell-8');
 let startButton = document.getElementById('start');
 let playerTurn = document.getElementById('playerStatus')
 let move = 0;
-let gameOn = false;
+let gameOn = true;
 
 
 //events to place mark for clicks in boxes
@@ -36,11 +36,13 @@ startButton.addEventListener('click', () => {
 //used to mark squares
 function mark(event) {
 	if (gameOn === true && move % 2 === 0) {
-        event.target.textContent = 'o'
+        event.target.textContent = 'x'
         move = move + 1
+        playerTurn.textContent = 'Player O\'s turn'
 	} else if (gameOn === true && (move+2) % 2 === 1 ){
-        event.target.textContent = 'x';
+        event.target.textContent = 'o';
         move = move + 1
-        alert(gameOn)
+        playerTurn.textContent = 'Player X\'s turn'
+        
 	}
 }
