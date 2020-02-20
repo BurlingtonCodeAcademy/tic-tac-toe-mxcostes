@@ -13,24 +13,25 @@
   <h2>Tic Tac Toe</h2>
   <div id="playArea" class="board">
     <div id="row-1">
-      <div id="cell-0"></div>
-      <div id="cell-1"></div>
-      <div id="cell-2"></div>
+      <div id="cell-0" class="r1 c1 d1"></div>
+      <div id="cell-1" class="r1 c2"></div>
+      <div id="cell-2" class="r1 c3 d2"></div>
     </div>
     <div id="row-2">
-      <div id="cell-3"></div>
-      <div id="cell-4"></div>
-      <div id="cell-5"></div>
+      <div id="cell-3" class="r2 c1"></div>
+      <div id="cell-4" class="r2 c2 d1 d2"></div>
+      <div id="cell-5" class="r2 c3"></div>
     </div>
     <div id="row-3">
-      <div id="cell-6"></div>
-      <div id="cell-7"></div>
-      <div id="cell-8"></div>
+      <div id="cell-6" class="r3 c1 d2"></div>
+      <div id="cell-7" class="r3 c2"></div>
+      <div id="cell-8" class="r3 c3 d1"></div>
     </div>
   </div>
 
   <div class="status">
-    <button id="start" type="button">Start Game</button>
+    <button id="start" type="button" onclick="setInterval(timer, 6000)">Start Game</button>
+    <button id="reset" type="button">Reset</button>
     <div>
       <div>
         <p id="playerStatus"></p>
@@ -38,6 +39,9 @@
       <button id="zero" type="button">0 players</button>
       <button id="one" type="button">1 players</button>
       <button id="two" type="button">2 players</button>
+    </div>
+    <div>
+      <span class="timer">Elapsed Time: <span id="time" class="timer">0</span></span>
     </div>
   </div>
   <script src="main.js"></script>
