@@ -11,12 +11,27 @@ let cell8 = document.getElementById('cell-8');
 let clock = document.getElementById('time');
 let startButton = document.getElementById('start');
 let resetButton = document.getElementById('reset');
+let player1Button = document.getElementById('p1Button');
+let player2Button = document.getElementById('p2Button');
 let playerTurn = document.getElementById('playerStatus');
+let playerXName = document.getElementById('playerX')
+let playerOName = document.getElementById('playerO')
 
 let seconds = Number(clock.textContent);
 let move = 0;
 let gameOn = false;
 let winner = '';
+
+player1Button.addEventListener('click', () => {
+    playerXName.textContent = names.value
+    names.value = ''
+});
+
+player2Button.addEventListener('click', ()=> {
+    playerOName.textContent = names.value
+    names.value = ''
+
+})
 
 //winning combos object
 //rows, columns, diagonals
@@ -59,25 +74,25 @@ function mark(event) {
 	if (event.target.textContent === '') {
 		if (gameOn === true && move % 2 === 0) {
 			event.target.textContent = 'x';
-            move = move + 1;
-            playerTurn.textContent = "Player O's turn"
-            winCheck(event.target.textContent)
-				//winnerwinner()
-			}  else if (gameOn === true && (move + 2) % 2 === 1) {
+			move = move + 1;
+			playerTurn.textContent = "Player O's turn";
+			winCheck(event.target.textContent);
+			//winnerwinner()
+		} else if (gameOn === true && (move + 2) % 2 === 1) {
 			event.target.textContent = 'o';
-            move = move + 1;
-            playerTurn.textContent = "Player X's turn";
-                winCheck(event.target.textContent)
-        }
-
-	 else if (event.target.textContent === 'x' || event.target.textContent === 'o') {
-		playerTurn.textContent = 'Please select an empty cell';
-	}}}
-
+			move = move + 1;
+			playerTurn.textContent = "Player X's turn";
+			winCheck(event.target.textContent);
+		} else if (event.target.textContent === 'x' || event.target.textContent === 'o') {
+			playerTurn.textContent = 'Please select an empty cell';
+		}
+	}
+}
 
 //reset
 function reset() {
 	gameOn = false;
+	//--------return to cells to empty
 	cell0.textContent = '';
 	cell1.textContent = '';
 	cell2.textContent = '';
@@ -87,6 +102,16 @@ function reset() {
 	cell6.textContent = '';
 	cell7.textContent = '';
 	cell8.textContent = '';
+	//--------remove winning class
+	cell0.className = '';
+	cell1.className = '';
+	cell2.className = '';
+	cell3.className = '';
+	cell4.className = '';
+	cell5.className = '';
+	cell6.className = '';
+	cell7.className = '';
+	cell8.className = '';
 	startButton.disabled = false;
 	cell0.removeEventListener('click', mark);
 	cell1.removeEventListener('click', mark);
@@ -100,7 +125,7 @@ function reset() {
 	clearInterval(interval);
 	clock.textContent = 0;
 	seconds = 0;
-	move = 0;
+    move = 0;
 	playerTurn = 'Please select number of players and click the Start Button';
 	console.log('reset');
 }
@@ -112,31 +137,30 @@ function timer() {
 }
 
 //winlogic
-			
-        function winCheck(target){
-            for (let element of Object.values(winningCombos)) {
-                console.log(target)
-                console.log(element[0].textContent)
-				if (element[0].textContent === '') {
-                console.log('what is going on')
-					
-				} else if (
-					element[0].textContent === element[1].textContent &&
-					element[0].textContent === element[2].textContent && element[0].textContent===target 
-				){
-                    console.log(target + 'has won');
-                   for (cell of element){
-                       cell.className += 'winner'
-                   } 	
-				winnerwinner(target)
-			
-                }}}
 
+function winCheck(target) {
+	for (let element of Object.values(winningCombos)) {
+		console.log(target);
+		console.log(element[0].textContent);
+		if (element[0].textContent === '') {
+			console.log('what is going on');
+		} else if (
+			element[0].textContent === element[1].textContent &&
+			element[0].textContent === element[2].textContent &&
+			element[0].textContent === target
+		) {
+			console.log(target + 'has won');
+			for (cell of element) {
+				cell.className += 'winner';
+			}
+			winnerwinner(target);
+		}
+	}
+}
 
 function winnerwinner(winner) {
-	
-    playerTurn.textContent = 'Congratulations ' + winner +' won the game ';
-    clearInterval(interval)
+	playerTurn.textContent = 'Congratulations ' + winner + ' won the game ';
+	clearInterval(interval);
 	cell0.removeEventListener('click', mark);
 	cell1.removeEventListener('click', mark);
 	cell2.removeEventListener('click', mark);

@@ -57,9 +57,22 @@ div.board {
 }
 
 .timer{
-  font-size: 50px;
+  font-size: 2rem;
 }
 
 .winner {
   color: red;
+}
+
+#player {
+  font-size: 2rem;
+}
+
+#playerX {
+  font-size: 2rem;
+  
+}
+
+#playerO {
+  font-size: 2rem;
 }
