@@ -26,26 +26,7 @@ let gameOn = false;
 let winner = '';
 let computer = false;
 
-player1Button.addEventListener('click', () => {
-	playerXName.textContent = names.value;
-	names.value = '';
-});
-
-player2Button.addEventListener('click', () => {
-	playerOName.textContent = names.value;
-	names.value = '';
-});
-
-pVPButton.addEventListener('click', () => {
-	pVCButton.disabled = true;
-	pVPButton.disabled = true;
-});
-
-pVCButton.addEventListener('click', () => {
-	pVCButton.disabled = true;
-	pVPButton.disabled = true;
-	computer = true;
-});
+// object to aid computer guess function
 
 let cellLookup = {
 	0: cell0,
@@ -70,6 +51,33 @@ let winningCombos = {
 	d1: [ cell0, cell4, cell8 ],
 	d2: [ cell2, cell4, cell6 ]
 };
+
+player1Button.addEventListener('click', () => {
+	playerXName.textContent = names.value;
+    names.value = '';
+});
+
+player2Button.addEventListener('click', () => {
+	playerOName.textContent = names.value;
+	names.value = '';
+});
+
+pVPButton.addEventListener('click', () => {
+	pVCButton.disabled = true;
+    pVPButton.disabled = true;
+    pVPButton.className = 'selectedButton'
+
+});
+
+pVCButton.addEventListener('click', () => {
+	pVCButton.disabled = true;
+	pVPButton.disabled = true;
+	player2Button.disabled = true;
+	computer = true;
+    playerOName.textContent = 'Computer';
+    pVCButton.className = 'selectedButton'
+
+});
 
 // start button
 //turns on game, disables button after click, displays text
@@ -165,8 +173,11 @@ function reset() {
 	playerXName.textContent = '';
 	playerTurn.textContent = 'Please select number of players and click the Start Button';
     // rest game settings
-    computer = false
-    console.log('reset');
+    pVPButton.className = ''
+    pVCButton.className = ''
+    computer = false;
+    player2Button.disabled = false
+	console.log('reset');
 }
 
 // set elapsed time

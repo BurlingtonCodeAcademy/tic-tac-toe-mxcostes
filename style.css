@@ -76,3 +76,7 @@ div.board {
 #playerO {
   font-size: 2rem;
 }
+
+.selectedButton {
+  background-color: yellow;
+}
