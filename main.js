@@ -13,25 +13,38 @@ let startButton = document.getElementById('start');
 let resetButton = document.getElementById('reset');
 let player1Button = document.getElementById('p1Button');
 let player2Button = document.getElementById('p2Button');
+let pVPButton = document.getElementById('PvP');
+let pVCButton = document.getElementById('PvC');
 let playerTurn = document.getElementById('playerStatus');
-let playerXName = document.getElementById('playerX')
-let playerOName = document.getElementById('playerO')
-
+let playerXName = document.getElementById('playerX');
+let playerOName = document.getElementById('playerO');
+let currentPlayer = playerXName.textContent;
 let seconds = Number(clock.textContent);
 let move = 0;
 let gameOn = false;
 let winner = '';
+let computer = false
 
 player1Button.addEventListener('click', () => {
-    playerXName.textContent = names.value
-    names.value = ''
+	playerXName.textContent = names.value;
+	names.value = '';
 });
 
-player2Button.addEventListener('click', ()=> {
-    playerOName.textContent = names.value
-    names.value = ''
+player2Button.addEventListener('click', () => {
+	playerOName.textContent = names.value;
+	names.value = '';
+});
 
-})
+pVPButton.addEventListener('click', () => {
+	pVCButton.disabled = true;
+	pVPButton.disabled = true;
+});
+
+pVCButton.addEventListener('click', () => {
+	pVCButton.disabled = true;
+    pVPButton.disabled = true;
+    computer = true
+});
 
 //winning combos object
 //rows, columns, diagonals
@@ -76,12 +89,14 @@ function mark(event) {
 			event.target.textContent = 'x';
 			move = move + 1;
 			playerTurn.textContent = "Player O's turn";
+			currentPlayer = playerXName.textContent;
 			winCheck(event.target.textContent);
-			//winnerwinner()
 		} else if (gameOn === true && (move + 2) % 2 === 1) {
+            if(computer === true)
 			event.target.textContent = 'o';
 			move = move + 1;
 			playerTurn.textContent = "Player X's turn";
+			currentPlayer = playerOName.textContent;
 			winCheck(event.target.textContent);
 		} else if (event.target.textContent === 'x' || event.target.textContent === 'o') {
 			playerTurn.textContent = 'Please select an empty cell';
@@ -113,6 +128,10 @@ function reset() {
 	cell7.className = '';
 	cell8.className = '';
 	startButton.disabled = false;
+	pVCButton.disabled = true;
+	pVPButton.disabled = true;
+
+	//suspend clickability
 	cell0.removeEventListener('click', mark);
 	cell1.removeEventListener('click', mark);
 	cell2.removeEventListener('click', mark);
@@ -122,11 +141,16 @@ function reset() {
 	cell6.removeEventListener('click', mark);
 	cell7.removeEventListener('click', mark);
 	cell8.removeEventListener('click', mark);
+	//reset the clock
 	clearInterval(interval);
 	clock.textContent = 0;
 	seconds = 0;
-    move = 0;
-	playerTurn = 'Please select number of players and click the Start Button';
+	//reset the move counter
+	move = 0;
+	//reset the text
+	playerOName.textContent = '';
+	playerXName.textContent = '';
+	playerTurn.textContent = 'Please select number of players and click the Start Button';
 	console.log('reset');
 }
 
@@ -159,7 +183,7 @@ function winCheck(target) {
 }
 
 function winnerwinner(winner) {
-	playerTurn.textContent = 'Congratulations ' + winner + ' won the game ';
+	playerTurn.textContent = 'Congratulations ' + currentPlayer + ', player ' + winner + ' has won the game ';
 	clearInterval(interval);
 	cell0.removeEventListener('click', mark);
 	cell1.removeEventListener('click', mark);
