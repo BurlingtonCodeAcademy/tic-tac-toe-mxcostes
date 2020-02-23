@@ -8,6 +8,7 @@ let cell5 = document.getElementById('cell-5');
 let cell6 = document.getElementById('cell-6');
 let cell7 = document.getElementById('cell-7');
 let cell8 = document.getElementById('cell-8');
+let cellNumber;
 let clock = document.getElementById('time');
 let startButton = document.getElementById('start');
 let resetButton = document.getElementById('reset');
@@ -23,7 +24,7 @@ let seconds = Number(clock.textContent);
 let move = 0;
 let gameOn = false;
 let winner = '';
-let computer = false
+let computer = false;
 
 player1Button.addEventListener('click', () => {
 	playerXName.textContent = names.value;
@@ -42,10 +43,21 @@ pVPButton.addEventListener('click', () => {
 
 pVCButton.addEventListener('click', () => {
 	pVCButton.disabled = true;
-    pVPButton.disabled = true;
-    computer = true
+	pVPButton.disabled = true;
+	computer = true;
 });
 
+let cellLookup = {
+	0: cell0,
+	1: cell1,
+	2: cell2,
+	3: cell3,
+	4: cell4,
+	5: cell5,
+	6: cell6,
+	7: cell7,
+	8: cell8
+};
 //winning combos object
 //rows, columns, diagonals
 let winningCombos = {
@@ -91,16 +103,17 @@ function mark(event) {
 			playerTurn.textContent = "Player O's turn";
 			currentPlayer = playerXName.textContent;
 			winCheck(event.target.textContent);
-		} else if (gameOn === true && (move + 2) % 2 === 1) {
-            if(computer === true)
+		} else if (gameOn === true && (move + 2) % 2 === 1 && computer === true) {
+			comGuess();
+		} else if (gameOn === true && (move + 2) % 2 === 1 && computer === false) {
 			event.target.textContent = 'o';
 			move = move + 1;
 			playerTurn.textContent = "Player X's turn";
 			currentPlayer = playerOName.textContent;
 			winCheck(event.target.textContent);
-		} else if (event.target.textContent === 'x' || event.target.textContent === 'o') {
-			playerTurn.textContent = 'Please select an empty cell';
 		}
+	} else if (event.target.textContent === 'x' || event.target.textContent === 'o') {
+		playerTurn.textContent = 'Please select an empty cell';
 	}
 }
 
@@ -128,8 +141,8 @@ function reset() {
 	cell7.className = '';
 	cell8.className = '';
 	startButton.disabled = false;
-	pVCButton.disabled = true;
-	pVPButton.disabled = true;
+	pVCButton.disabled = false;
+	pVPButton.disabled = false;
 
 	//suspend clickability
 	cell0.removeEventListener('click', mark);
@@ -151,13 +164,27 @@ function reset() {
 	playerOName.textContent = '';
 	playerXName.textContent = '';
 	playerTurn.textContent = 'Please select number of players and click the Start Button';
-	console.log('reset');
+    // rest game settings
+    computer = false
+    console.log('reset');
 }
 
 // set elapsed time
 function timer() {
 	seconds = seconds + 1;
 	clock.textContent = seconds;
+}
+
+//computer guess
+function comGuess() {
+	cellNumber = Math.floor(Math.random() * 8);
+
+	if (cellLookup[cellNumber].textContent === '') {
+		cellLookup[cellNumber].textContent = 'o';
+		move = move + 1;
+	} else {
+		comGuess();
+	}
 }
 
 //winlogic
