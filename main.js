@@ -52,31 +52,31 @@ let winningCombos = {
 	d2: [ cell2, cell4, cell6 ]
 };
 
+//button listeners
+//sets player x name
 player1Button.addEventListener('click', () => {
 	playerXName.textContent = names.value;
-    names.value = '';
+	names.value = '';
 });
-
+//sets player o name
 player2Button.addEventListener('click', () => {
 	playerOName.textContent = names.value;
 	names.value = '';
 });
-
+//sets up settings for a player vs player match
 pVPButton.addEventListener('click', () => {
 	pVCButton.disabled = true;
-    pVPButton.disabled = true;
-    pVPButton.className = 'selectedButton'
-
+	pVPButton.disabled = true;
+	pVPButton.className = 'selectedButton';
 });
-
+//sets up setting for a player vs computer match
 pVCButton.addEventListener('click', () => {
 	pVCButton.disabled = true;
 	pVPButton.disabled = true;
 	player2Button.disabled = true;
 	computer = true;
-    playerOName.textContent = 'Computer';
-    pVCButton.className = 'selectedButton'
-
+	playerOName.textContent = 'Computer';
+	pVCButton.className = 'selectedButton';
 });
 
 // start button
@@ -103,7 +103,6 @@ resetButton.addEventListener('click', reset);
 //used to mark squares, also change player turn text content
 //if logic keeps track of turns and keeps clicking on an already selected square from overwriting, and works when start button has been initiated
 function mark(event) {
-	//winCheck()
 	if (event.target.textContent === '') {
 		if (gameOn === true && move % 2 === 0) {
 			event.target.textContent = 'x';
@@ -112,6 +111,7 @@ function mark(event) {
 			currentPlayer = playerXName.textContent;
 			winCheck(event.target.textContent);
 		} else if (gameOn === true && (move + 2) % 2 === 1 && computer === true) {
+//computer guess logic
 			comGuess();
 		} else if (gameOn === true && (move + 2) % 2 === 1 && computer === false) {
 			event.target.textContent = 'o';
@@ -172,23 +172,24 @@ function reset() {
 	playerOName.textContent = '';
 	playerXName.textContent = '';
 	playerTurn.textContent = 'Please select number of players and click the Start Button';
-    // rest game settings
-    pVPButton.className = ''
-    pVCButton.className = ''
-    computer = false;
-    player2Button.disabled = false
+	// rest game settings
+	pVPButton.className = '';
+	pVCButton.className = '';
+	computer = false;
+	player2Button.disabled = false;
 	console.log('reset');
 }
 
-// set elapsed time
+// gives elapsed time since starting each game
 function timer() {
 	seconds = seconds + 1;
 	clock.textContent = seconds;
 }
 
 //computer guess
+//generates a random guess within the game
 function comGuess() {
-	cellNumber = Math.floor(Math.random() * 8);
+	cellNumber = Math.floor(Math.random() * 9);
 
 	if (cellLookup[cellNumber].textContent === '') {
 		cellLookup[cellNumber].textContent = 'o';
@@ -199,19 +200,18 @@ function comGuess() {
 }
 
 //winlogic
-
+//checks all winning combinations within a methods arrays
+//iterates over winning array and adds a class to show the winning combo
 function winCheck(target) {
 	for (let element of Object.values(winningCombos)) {
-		console.log(target);
-		console.log(element[0].textContent);
 		if (element[0].textContent === '') {
-			console.log('what is going on');
+			
 		} else if (
 			element[0].textContent === element[1].textContent &&
 			element[0].textContent === element[2].textContent &&
 			element[0].textContent === target
 		) {
-			console.log(target + 'has won');
+			
 			for (cell of element) {
 				cell.className += 'winner';
 			}
@@ -219,7 +219,7 @@ function winCheck(target) {
 		}
 	}
 }
-
+//prints win message and suspends clickability within game
 function winnerwinner(winner) {
 	playerTurn.textContent = 'Congratulations ' + currentPlayer + ', player ' + winner + ' has won the game ';
 	clearInterval(interval);
