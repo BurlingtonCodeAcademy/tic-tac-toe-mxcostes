@@ -110,6 +110,7 @@ function mark(event) {
 			playerTurn.textContent = "Player O's turn";
 			currentPlayer = playerXName.textContent;
 			winCheck(event.target.textContent);
+			draw()
 		} else if (gameOn === true && (move + 2) % 2 === 1 && computer === true) {
 //computer guess logic
 			comGuess();
@@ -119,7 +120,8 @@ function mark(event) {
 			playerTurn.textContent = "Player X's turn";
 			currentPlayer = playerOName.textContent;
 			winCheck(event.target.textContent);
-		}
+			draw()
+		} 
 	} else if (event.target.textContent === 'x' || event.target.textContent === 'o') {
 		playerTurn.textContent = 'Please select an empty cell';
 	}
@@ -198,6 +200,37 @@ function comGuess() {
 		comGuess();
 	}
 }
+
+
+
+
+
+function draw() {
+if (cell0.textContent!==''&&
+	cell1.textContent!==''&&
+	cell2.textContent!==''&&
+	cell3.textContent!==''&&
+	cell4.textContent!==''&&
+	cell5.textContent!==''&&
+	cell6.textContent!==''&&
+	cell7.textContent!==''&&
+	cell8.textContent!==''){
+		playerTurn.textContent = 'We have a draw'
+		gameOn = false
+		clearInterval(interval);
+		cell0.removeEventListener('click', mark);
+		cell1.removeEventListener('click', mark);
+		cell2.removeEventListener('click', mark);
+		cell3.removeEventListener('click', mark);
+		cell4.removeEventListener('click', mark);
+		cell5.removeEventListener('click', mark);
+		cell6.removeEventListener('click', mark);
+		cell7.removeEventListener('click', mark);
+		cell8.removeEventListener('click', mark);
+
+	}
+}
+
 
 //winlogic
 //checks all winning combinations within a methods arrays
