@@ -110,7 +110,7 @@ function mark(event) {
 			playerTurn.textContent = "Player O's turn";
 			currentPlayer = playerXName.textContent;
 			winCheck(event.target.textContent);
-			draw()
+			// draw()
 		} else if (gameOn === true && (move + 2) % 2 === 1 && computer === true) {
 //computer guess logic
 			comGuess();
@@ -120,7 +120,7 @@ function mark(event) {
 			playerTurn.textContent = "Player X's turn";
 			currentPlayer = playerOName.textContent;
 			winCheck(event.target.textContent);
-			draw()
+			
 		} 
 	} else if (event.target.textContent === 'x' || event.target.textContent === 'o') {
 		playerTurn.textContent = 'Please select an empty cell';
@@ -227,6 +227,7 @@ if (cell0.textContent!==''&&
 		cell6.removeEventListener('click', mark);
 		cell7.removeEventListener('click', mark);
 		cell8.removeEventListener('click', mark);
+		
 
 	}
 }
@@ -249,7 +250,10 @@ function winCheck(target) {
 				cell.className += 'winner';
 			}
 			winnerwinner(target);
-		}
+			break
+		} else {
+			draw()
+	} 
 	}
 }
 //prints win message and suspends clickability within game
