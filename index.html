@@ -11,7 +11,8 @@
 
 <body>
   <h2>Tic Tac Toe</h2>
-  <div class="board">
+  <div>If playing against the computer please click an empty cell to let the computer know when to make a choice</div>
+  <div id="playArea" class="board">
     <div id="row-1">
       <div id="cell-0"></div>
       <div id="cell-1"></div>
@@ -31,6 +32,27 @@
 
   <div class="status">
     <button id="start" type="button">Start Game</button>
+    <button id="reset" type="button">Reset</button>
+    <div>
+      <div>
+        <p id="playerStatus">Please select number of players and click the Start Button</p>
+      </div>
+      <button id="PvC" type="button">Player vs Computer</button>
+      <button id="PvP" type="button">Player vs Player</button>
+    </div>
+    <div>
+      <label for="playerName">Enter player name here</label>
+      <input id="names" type="text" placeholder="Player Name"></input>
+      <button id="p1Button">Submit Player X</button>      <button id="p2Button">Submit Player O</button>
+
+    </div>
+    <div>
+      <span id="player">Player X: <span id="playerX"></></span> <span/><span id="player">Player O: <span id="playerO"></span></span>
+     
+    </div>
+    <div>
+      <span class="timer">Elapsed Time: <span id="time" class="timer">0</span> seconds</span>
+    </div>
   </div>
   <script src="main.js"></script>
 </body>

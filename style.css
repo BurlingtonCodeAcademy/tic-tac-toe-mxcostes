@@ -53,4 +53,30 @@ div.board {
   width: 608px;
   overflow: hidden;
   margin: 0 auto;
+  font-size: 12rem;
+}
+
+.timer{
+  font-size: 2rem;
+}
+
+.winner {
+  color: red;
+}
+
+#player {
+  font-size: 2rem;
+}
+
+#playerX {
+  font-size: 2rem;
+  
+}
+
+#playerO {
+  font-size: 2rem;
+}
+
+.selectedButton {
+  background-color: yellow;
 }
